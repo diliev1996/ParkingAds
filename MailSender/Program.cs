@@ -71,11 +71,13 @@ namespace SendMail
                            var smtp = SetUpMailServer();
                            using (var message = new MailMessage(fromAddress.Address,
                                emailMessage.Address,
-                               emailMessage.Subject, emailMessage.Body))
+                               emailMessage.Subject, 
+                               emailMessage.Body))
                            {
                                using (smtp)
                                {
                                    smtp.Send(message);
+                                   //save to db
                                    Console.WriteLine("Message sent");
                                }
                            }
