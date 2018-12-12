@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net.Http;
-using System.Configuration;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using Newtonsoft.Json;
@@ -11,32 +10,26 @@ namespace ParkingAdsAPI.Controllers
 {
     public class RootObject
     {
-        public (DateTime, string) ImageData { get; set; }
+        public string ImageData { get; set; }
     }
 
     [Route("api/[controller]")]
     [ApiController]
     public class AdsController : ControllerBase
     {
-        public (DateTime, string) ImageData { get; set; }
-        public static IConfigurationRoot configuration { get; set; }
+        public static (DateTime, string) ImageData { get; set; }
+        public static IConfiguration _configuration { get; set; }
         public static HttpClient client { get; set; }
 
-        public AdsController()
+        public AdsController(IConfiguration configuration)
         {
-            configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile(@"C:\Users\deobo\Source\repos\MailSender\ParkingAdsAPI\adsService.json", optional: true, reloadOnChange: true).Build();
-
-            var setting = configuration["addServiceAddress"];
+            _configuration = configuration;
             client = new HttpClient
             {
-                BaseAddress = new Uri(setting),
+                BaseAddress = new Uri(configuration["addServiceAddress"]),
             };
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-            Get();
         }
 
         [HttpGet]
@@ -45,16 +38,18 @@ namespace ParkingAdsAPI.Controllers
             try
             {
                 var now = DateTime.UtcNow;
-                if (ImageData.Item1.AddMinutes(2) > now)
+                if (ImageData.Item1.AddMinutes(2) < now)
                 {
-                    var resultByte = client.GetByteArrayAsync(configuration["addServiceAPIEndpoint"]).GetAwaiter().GetResult();
-                    string result = System.Text.Encoding.UTF8.GetString(resultByte);
-                    var root = JsonConvert.DeserializeObject<RootObject>(result);
-                    using (var ms = new MemoryStream(Convert.FromBase64String(root.ImageData.Item2)))
+                    var adsApiEndpoint = _configuration["addServiceAPIEndpoint"];
+                    var resultByte = client.GetByteArrayAsync(adsApiEndpoint).GetAwaiter().GetResult();
+                    var resultAsString = System.Text.Encoding.UTF8.GetString(resultByte);
+                    var root = JsonConvert.DeserializeObject<RootObject>(resultAsString);
+                    var imageStr = root.ImageData;
+                    using (var ms = new MemoryStream(Convert.FromBase64String(imageStr)))
                     {
                         using (var bitmap = new Bitmap(ms))
                         {
-                            ImageData = (now, result);
+                            ImageData = (now, imageStr);
                         }
                     }
                 }

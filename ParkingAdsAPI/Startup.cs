@@ -22,6 +22,8 @@ namespace ParkingAdsAPI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            Configuration["addServiceAddress"] = "http://adservice.ws.dm.sof60.dk/";
+            Configuration["addServiceAPIEndpoint"] = "api/ad";
         }
 
         public IConfiguration Configuration { get; }

@@ -6,14 +6,6 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Content Remove="adsService.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="adsService.json" />
-  </ItemGroup>
-
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
