@@ -18,7 +18,6 @@ namespace AdsPicker
     {
         public static void Main(string[] args)
         {
-            var path = Directory.GetCurrentDirectory();
             var builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("settings.json", optional: true, reloadOnChange: true);
