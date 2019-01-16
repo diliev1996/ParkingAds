@@ -1,10 +1,7 @@
 ﻿using RabbitMQ.Client;
 using System;
 using System.IO;
-using System.Net;
-using System.Net.Mail;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
 
 namespace MessagingPublisher
 {
@@ -31,13 +28,18 @@ namespace MessagingPublisher
         }
 
         public static void SendMessage(
-                    string emailBody = "this is the body", 
+                    string emailBody = "this is the body",
                     string address = "diliev1996@gmail.com",
-                    string subject= "RabbitMQ")
+                    string subject = "RabbitMQ")
         {
-            var factory = new ConnectionFactory() { 
-                HostName = "amqp://sgxsvkdw:zmeCytKeq8wlXGgkn44Z23XU0cC1_aY1@bee.rmq.cloudamqp.com/sgxsvkdw"
+            var factory = new ConnectionFactory()
+            {
+                HostName = "bee-01.rmq.cloudamqp.com",
+                Password = "zmeCytKeq8wlXGgkn44Z23XU0cC1_aY1",
+                UserName = "sgxsvkdw",
+                VirtualHost = "sgxsvkdw"
             };
+
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
@@ -60,9 +62,7 @@ namespace MessagingPublisher
                                      routingKey: queueName,
                                      basicProperties: null,
                                      body: body);
-
             }
-
         }
     }
 }
