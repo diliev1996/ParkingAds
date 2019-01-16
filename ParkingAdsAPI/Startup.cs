@@ -61,8 +61,8 @@ namespace ParkingAdsAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
-                dbContext.Database.EnsureCreated();
+                //app.UseDatabaseErrorPage();
+                //dbContext.Database.EnsureCreated();
             }
             else
             {

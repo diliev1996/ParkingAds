@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 using Newtonsoft.Json;
 using System.Drawing;
+using Microsoft.AspNetCore.Cors;
 
 namespace ParkingAdsAPI.Controllers
 {
@@ -33,7 +34,8 @@ namespace ParkingAdsAPI.Controllers
         }
 
         [HttpGet]
-        public string Get()
+        [DisableCors]
+        public (DateTime, string) Get()
         {
             try
             {
@@ -61,7 +63,7 @@ namespace ParkingAdsAPI.Controllers
                 Console.WriteLine(e.Message);
             }
 
-            return ImageData.Item2;
+            return ImageData;
         }
     }
 }

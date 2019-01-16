@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdsPicker", "AdsPicker\AdsP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingAdsAPI", "ParkingAdsAPI\ParkingAdsAPI.csproj", "{258EA0C4-E6BE-415A-AFBE-B131FAA228DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagingPublisher", "MessagingPublisher\MessagingPublisher.csproj", "{7DC90671-A9AC-4689-9968-DF799BD05A23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{258EA0C4-E6BE-415A-AFBE-B131FAA228DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{258EA0C4-E6BE-415A-AFBE-B131FAA228DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{258EA0C4-E6BE-415A-AFBE-B131FAA228DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DC90671-A9AC-4689-9968-DF799BD05A23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DC90671-A9AC-4689-9968-DF799BD05A23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DC90671-A9AC-4689-9968-DF799BD05A23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DC90671-A9AC-4689-9968-DF799BD05A23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

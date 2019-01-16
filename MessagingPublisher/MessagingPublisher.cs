@@ -6,9 +6,9 @@ using System.Net.Mail;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
-namespace ConsoleApp1
+namespace MessagingPublisher
 {
-    public class Program
+    public class MessagingPublisher
     {
         [Serializable]
         public class Email
@@ -30,13 +30,18 @@ namespace ConsoleApp1
             }
         }
 
-        private static void Main(string[] args)
+        public static void SendMessage(
+                    string emailBody = "this is the body", 
+                    string address = "diliev1996@gmail.com",
+                    string subject= "RabbitMQ")
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory() { 
+                HostName = "amqp://sgxsvkdw:zmeCytKeq8wlXGgkn44Z23XU0cC1_aY1@bee.rmq.cloudamqp.com/sgxsvkdw"
+            };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
-                var queueName = "email";
+                var queueName = "email-out";
                 channel.QueueDeclare(queue: queueName,
                                      durable: true,
                                      exclusive: false,
@@ -45,22 +50,19 @@ namespace ConsoleApp1
 
                 var email = new Email
                 {
-                    Body = "this is the body",
-                    Address = "diliev1996@gmail.com",
-                    Subject = "RabbitMQ"
+                    Body = emailBody,
+                    Address = address,
+                    Subject = subject
                 };
                 var body = Serialize(email);
 
-                channel.BasicPublish(exchange: "",
+                channel.BasicPublish(exchange: "X",
                                      routingKey: queueName,
                                      basicProperties: null,
                                      body: body);
 
-                Console.WriteLine("Message sent");
             }
 
-            Console.WriteLine(" Press [enter] to exit.");
-            Console.ReadLine();
         }
     }
 }

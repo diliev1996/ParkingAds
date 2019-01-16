@@ -38,6 +38,7 @@ namespace AdsPicker
                     var root = JsonConvert.DeserializeObject<RootObject>(result);
                     using (var ms = new MemoryStream(Convert.FromBase64String(root.ImageData)))
                     {
+                        Console.WriteLine("start");
                         using (var bitmap = new Bitmap(ms))
                         {
                             Console.WriteLine("Success");

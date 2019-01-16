@@ -1,6 +1,6 @@
 ﻿{
   "addServiceAddress": "http://adservice.ws.dm.sof60.dk/",
   "addServiceAPIEndpoint": "api/ad",
-  "parkingAdsAddress": "http://localhost:17684",
-  "parkingAdsAPIEndpoint": "/api/adds"
+  "parkingAdsAddress": "http://localhost:5001",
+  "parkingAdsAPIEndpoint": "/api/ads"
 }
